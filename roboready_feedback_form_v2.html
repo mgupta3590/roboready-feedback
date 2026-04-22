@@ -1,0 +1,160 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+.rr-wrap { background: #0d1b2e; min-height: 100vh; padding: 0 0 40px; font-family: 'Crimson Pro', Georgia, serif; }
+.rr-header { text-align: center; padding: 28px 20px 18px; border-bottom: 1px solid #c8a84b44; }
+.rr-title { font-family: 'Cinzel', serif; font-size: 28px; color: #c8a84b; letter-spacing: 4px; margin-bottom: 4px; }
+.rr-subtitle { font-size: 12px; color: #8a9ab5; letter-spacing: 1.5px; text-transform: uppercase; }
+.gold-line { height: 2px; background: linear-gradient(90deg, transparent, #c8a84b, transparent); margin: 0 auto 24px; width: 60%; }
+.rr-card { background: #162540; border: 1px solid #c8a84b33; border-radius: 10px; margin: 0 20px 16px; padding: 20px 24px; }
+.section-label { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 2px; color: #c8a84b; text-transform: uppercase; margin-bottom: 14px; display: block; }
+.q-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+.q-text { color: #d4dde8; font-size: 13px; flex: 1; }
+.stars { display: flex; gap: 6px; }
+.star { width: 28px; height: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.star svg { width: 22px; height: 22px; transition: transform 0.15s; }
+.star:hover svg { transform: scale(1.2); }
+.star.active svg path { fill: #c8a84b; }
+.star svg path { fill: none; stroke: #c8a84b66; stroke-width: 1.5; transition: fill 0.15s, stroke 0.15s; }
+.yn-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.yn-text { color: #d4dde8; font-size: 13px; flex: 1; }
+.yn-btns { display: flex; gap: 8px; }
+.yn-btn { padding: 5px 16px; border-radius: 20px; border: 1px solid #c8a84b55; background: transparent; color: #c8a84b; font-family: 'Crimson Pro', serif; font-size: 12px; cursor: pointer; transition: all 0.15s; letter-spacing: 0.5px; }
+.yn-btn.selected-yes { background: #c8a84b; color: #0d1b2e; border-color: #c8a84b; font-weight: 600; }
+.yn-btn.selected-no { background: #3a1a1a; color: #e8847a; border-color: #e8847a55; }
+.rr-textarea { width: 100%; background: #0d1b2e; border: 1px solid #c8a84b33; border-radius: 6px; color: #d4dde8; font-family: 'Crimson Pro', Georgia, serif; font-size: 13px; padding: 10px 12px; resize: vertical; outline: none; transition: border-color 0.2s; box-sizing: border-box; }
+.rr-textarea:focus { border-color: #c8a84b88; }
+.rr-textarea::placeholder { color: #4a5a6a; }
+.q-label-sm { color: #8a9ab5; font-size: 11px; margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
+.role-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+.role-chip { padding: 6px 14px; border-radius: 20px; border: 1px solid #c8a84b44; background: transparent; color: #8a9ab5; font-family: 'Crimson Pro', serif; font-size: 12px; cursor: pointer; transition: all 0.15s; }
+.role-chip.selected { background: #c8a84b22; border-color: #c8a84b; color: #c8a84b; }
+.submit-btn { display: block; width: calc(100% - 40px); margin: 4px 20px 0; padding: 14px; background: linear-gradient(135deg, #b8942e, #e2c97e, #b8942e); color: #0d1b2e; font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 2px; border: none; border-radius: 8px; cursor: pointer; transition: opacity 0.2s, transform 0.15s; }
+.submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.submit-btn:active { transform: translateY(0); }
+.thankyou { display: none; text-align: center; padding: 60px 20px; }
+.thankyou-icon { width: 56px; height: 56px; background: #c8a84b22; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.thankyou h2 { font-family: 'Cinzel', serif; color: #c8a84b; font-size: 20px; margin-bottom: 10px; }
+.thankyou p { color: #8a9ab5; font-size: 14px; }
+.divider { height: 1px; background: #c8a84b22; margin: 14px 0; }
+</style>
+
+<div class="rr-wrap" id="formWrap">
+  <div class="rr-header">
+    <div class="rr-title">ROBO-READY</div>
+    <div class="rr-subtitle">Foundation Robotic Bedside Assistant Course &nbsp;·&nbsp; 22 April 2026</div>
+  </div>
+  <div class="gold-line" style="margin-top:20px;"></div>
+
+  <div class="rr-card">
+    <span class="section-label">1 · Rate the following</span>
+    <div id="ratings"></div>
+  </div>
+
+  <div class="rr-card">
+    <span class="section-label">2 · Quick questions</span>
+    <div class="yn-row">
+      <span class="yn-text">Learning objectives were clear</span>
+      <div class="yn-btns">
+        <button class="yn-btn" onclick="selectYN(this,'obj','yes')">Yes</button>
+        <button class="yn-btn" onclick="selectYN(this,'obj','no')">No</button>
+      </div>
+    </div>
+    <div class="yn-row">
+      <span class="yn-text">Pacing of the day felt right</span>
+      <div class="yn-btns">
+        <button class="yn-btn" onclick="selectYN(this,'pace','yes')">Yes</button>
+        <button class="yn-btn" onclick="selectYN(this,'pace','no')">No</button>
+      </div>
+    </div>
+    <div class="yn-row" style="margin-bottom:0">
+      <span class="yn-text">Would recommend to a colleague</span>
+      <div class="yn-btns">
+        <button class="yn-btn" onclick="selectYN(this,'rec','yes')">Yes</button>
+        <button class="yn-btn" onclick="selectYN(this,'rec','no')">No</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rr-card">
+    <span class="section-label">3 · In your own words</span>
+    <span class="q-label-sm">Best part of today</span>
+    <textarea class="rr-textarea" id="best" placeholder="What stood out most…" style="height:60px; margin-bottom:14px;"></textarea>
+    <span class="q-label-sm">What would you change or add?</span>
+    <textarea class="rr-textarea" id="improve" placeholder="Share as many thoughts as you like…" style="height:100px;"></textarea>
+  </div>
+
+  <div class="rr-card">
+    <span class="section-label">4 · About you (optional)</span>
+    <span class="q-label-sm">Role</span>
+    <div class="role-grid" id="roleGrid" style="margin-bottom:14px;">
+      <button class="role-chip" onclick="selectChip(this,'role')">FY1</button>
+      <button class="role-chip" onclick="selectChip(this,'role')">FY2</button>
+      <button class="role-chip" onclick="selectChip(this,'role')">Medical Student</button>
+      <button class="role-chip" onclick="selectChip(this,'role')">Other</button>
+    </div>
+    <div class="divider"></div>
+    <span class="q-label-sm" style="margin-top:10px;display:block;">Prior robotic experience</span>
+    <div class="role-grid" id="expGrid">
+      <button class="role-chip" onclick="selectChip(this,'exp')">None</button>
+      <button class="role-chip" onclick="selectChip(this,'exp')">Observed only</button>
+      <button class="role-chip" onclick="selectChip(this,'exp')">Assisted before</button>
+    </div>
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">SUBMIT FEEDBACK</button>
+</div>
+
+<div class="thankyou" id="thankyou">
+  <div class="thankyou-icon">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#c8a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <h2>Thank you</h2>
+  <p style="color:#c8a84b; font-size:13px; margin-bottom:8px;">Your feedback has been recorded.</p>
+  <p>It will help shape future ROBO-READY courses.<br>Enjoy the rest of your day.</p>
+</div>
+
+<script>
+const ratingQuestions = [
+  { id: 'overall', label: 'Overall course quality' },
+  { id: 'sim', label: 'Quality of hands-on simulation' },
+  { id: 'teaching', label: 'Faculty teaching and supervision' },
+  { id: 'before', label: 'Confidence as bedside assistant — before today' },
+  { id: 'after', label: 'Confidence as bedside assistant — after today' },
+];
+const starSVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+const ratings = {};
+const container = document.getElementById('ratings');
+ratingQuestions.forEach(q => {
+  ratings[q.id] = 0;
+  const row = document.createElement('div');
+  row.className = 'q-row';
+  row.innerHTML = `<span class="q-text">${q.label}</span><div class="stars" id="stars-${q.id}">${[1,2,3,4,5].map(n=>`<div class="star" data-n="${n}" onclick="rate('${q.id}',${n})">${starSVG}</div>`).join('')}</div>`;
+  container.appendChild(row);
+  if (q.id !== 'after') {
+    const div = document.createElement('div');
+    div.style.cssText = 'height:1px;background:#c8a84b22;margin:2px 0 12px;';
+    container.appendChild(div);
+  }
+});
+function rate(id, n) {
+  ratings[id] = n;
+  document.querySelectorAll(`#stars-${id} .star`).forEach((s, i) => s.classList.toggle('active', i < n));
+}
+const ynState = {};
+function selectYN(btn, key, val) {
+  ynState[key] = val;
+  btn.parentElement.querySelectorAll('.yn-btn').forEach(b => b.classList.remove('selected-yes','selected-no'));
+  btn.classList.add(val === 'yes' ? 'selected-yes' : 'selected-no');
+}
+const chipState = {};
+function selectChip(chip, group) {
+  chipState[group] = chip.textContent;
+  chip.parentElement.querySelectorAll('.role-chip').forEach(c => c.classList.remove('selected'));
+  chip.classList.add('selected');
+}
+function submitForm() {
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('thankyou').style.display = 'block';
+}
+</script>
