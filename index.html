@@ -154,7 +154,34 @@ function selectChip(chip, group) {
   chip.classList.add('selected');
 }
 function submitForm() {
-  document.getElementById('formWrap').style.display = 'none';
-  document.getElementById('thankyou').style.display = 'block';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxhzXLyfNo0PPMLxs_Ta47JZyjc6ETZM0j6jBNphr5EFJdfpEOJAHCOUz9ej17PHmmV/exec';
+    const payload = {
+          q1: ratings.overall,
+          q2: ratings.sim,
+          q3: ratings.teaching,
+          q4: ratings.before,
+          q5: ratings.after,
+          objectives: ynState.obj || '',
+          pacing: ynState.pace || '',
+          recommend: ynState.rec || '',
+          bestPart: document.getElementById('best').value,
+          changeAdd: document.getElementById('improve').value,
+          role: chipState.role || '',
+          experience: chipState.exp || ''
+    };
+    fetch(WEB_APP_URL, {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: { 'Content-Type': 'application/json' }
+    })
+    .then(r => r.json())
+    .then(data => {
+          document.getElementById('formWrap').style.display = 'none';
+          document.getElementById('thankyou').style.display = 'block';
+    })
+    .catch(err => {
+          document.getElementById('formWrap').style.display = 'none';
+          document.getElementById('thankyou').style.display = 'block';
+          console.error('Submission error:', err);
+    });
 }
-</script>
