@@ -1,4 +1,3 @@
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
 .rr-wrap { background: #0d1b2e; min-height: 100vh; padding: 0 0 40px; font-family: 'Crimson Pro', Georgia, serif; }
@@ -37,6 +36,9 @@
 .thankyou h2 { font-family: 'Cinzel', serif; color: #c8a84b; font-size: 20px; margin-bottom: 10px; }
 .thankyou p { color: #8a9ab5; font-size: 14px; }
 .divider { height: 1px; background: #c8a84b22; margin: 14px 0; }
+.rr-input { width: 100%; background: #0d1b2e; border: 1px solid #c8a84b33; border-radius: 6px; color: #d4dde8; font-family: 'Crimson Pro', Georgia, serif; font-size: 13px; padding: 10px 12px; outline: none; transition: border-color 0.2s; box-sizing: border-box; }
+.rr-input:focus { border-color: #c8a84b88; }
+.rr-input::placeholder { color: #4a5a6a; }
 </style>
 
 <div class="rr-wrap" id="formWrap">
@@ -45,45 +47,43 @@
     <div class="rr-subtitle">Foundation Robotic Bedside Assistant Course &nbsp;·&nbsp; 22 April 2026</div>
   </div>
   <div class="gold-line" style="margin-top:20px;"></div>
-
+  <div class="rr-card">
+    <span class="section-label">Your Details</span>
+    <div style="margin-bottom:12px;">
+      <span class="q-label-sm">Full Name *</span>
+      <input type="text" class="rr-input" id="fullName" placeholder="Enter your full name" required />
+    </div>
+    <div>
+      <span class="q-label-sm">Email Address *</span>
+      <input type="email" class="rr-input" id="emailAddr" placeholder="Enter your email address" required />
+    </div>
+  </div>
   <div class="rr-card">
     <span class="section-label">1 · Rate the following</span>
     <div id="ratings"></div>
   </div>
-
   <div class="rr-card">
     <span class="section-label">2 · Quick questions</span>
     <div class="yn-row">
       <span class="yn-text">Learning objectives were clear</span>
-      <div class="yn-btns">
-        <button class="yn-btn" onclick="selectYN(this,'obj','yes')">Yes</button>
-        <button class="yn-btn" onclick="selectYN(this,'obj','no')">No</button>
-      </div>
+      <div class="yn-btns"><button class="yn-btn" onclick="selectYN(this,'obj','yes')">Yes</button><button class="yn-btn" onclick="selectYN(this,'obj','no')">No</button></div>
     </div>
     <div class="yn-row">
       <span class="yn-text">Pacing of the day felt right</span>
-      <div class="yn-btns">
-        <button class="yn-btn" onclick="selectYN(this,'pace','yes')">Yes</button>
-        <button class="yn-btn" onclick="selectYN(this,'pace','no')">No</button>
-      </div>
+      <div class="yn-btns"><button class="yn-btn" onclick="selectYN(this,'pace','yes')">Yes</button><button class="yn-btn" onclick="selectYN(this,'pace','no')">No</button></div>
     </div>
     <div class="yn-row" style="margin-bottom:0">
       <span class="yn-text">Would recommend to a colleague</span>
-      <div class="yn-btns">
-        <button class="yn-btn" onclick="selectYN(this,'rec','yes')">Yes</button>
-        <button class="yn-btn" onclick="selectYN(this,'rec','no')">No</button>
-      </div>
+      <div class="yn-btns"><button class="yn-btn" onclick="selectYN(this,'rec','yes')">Yes</button><button class="yn-btn" onclick="selectYN(this,'rec','no')">No</button></div>
     </div>
   </div>
-
   <div class="rr-card">
     <span class="section-label">3 · In your own words</span>
     <span class="q-label-sm">Best part of today</span>
-    <textarea class="rr-textarea" id="best" placeholder="What stood out most…" style="height:60px; margin-bottom:14px;"></textarea>
+    <textarea class="rr-textarea" id="best" placeholder="What stood out most..." style="height:60px; margin-bottom:14px;"></textarea>
     <span class="q-label-sm">What would you change or add?</span>
-    <textarea class="rr-textarea" id="improve" placeholder="Share as many thoughts as you like…" style="height:100px;"></textarea>
+    <textarea class="rr-textarea" id="improve" placeholder="Share as many thoughts as you like..." style="height:100px;"></textarea>
   </div>
-
   <div class="rr-card">
     <span class="section-label">4 · About you (optional)</span>
     <span class="q-label-sm">Role</span>
@@ -101,45 +101,39 @@
       <button class="role-chip" onclick="selectChip(this,'exp')">Assisted before</button>
     </div>
   </div>
-
   <button class="submit-btn" onclick="submitForm()">SUBMIT FEEDBACK</button>
 </div>
 
 <div class="thankyou" id="thankyou">
-  <div class="thankyou-icon">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#c8a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </div>
+  <div class="thankyou-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#c8a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   <h2>Thank you</h2>
   <p style="color:#c8a84b; font-size:13px; margin-bottom:8px;">Your feedback has been recorded.</p>
   <p>It will help shape future ROBO-READY courses.<br>Enjoy the rest of your day.</p>
 </div>
 
 <script>
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxI2yxtWP3X6caPCotPXD-1VDNEwGwu06RaiwemNxRfu3WJ5417KPzu7OB3Mgrl085PgA/exec';
 const ratingQuestions = [
-  { id: 'overall', label: 'Overall course quality' },
-  { id: 'sim', label: 'Quality of hands-on simulation' },
-  { id: 'teaching', label: 'Faculty teaching and supervision' },
-  { id: 'before', label: 'Confidence as bedside assistant — before today' },
-  { id: 'after', label: 'Confidence as bedside assistant — after today' },
+  { id: 'q1', label: 'Overall course content quality' },
+  { id: 'q2', label: 'Quality of hands-on simulation' },
+  { id: 'q3', label: 'Faculty teaching and supervision' },
+  { id: 'q4', label: 'Quality of facilities and equipment' },
+  { id: 'q5', label: 'Overall course experience' }
 ];
-const starSVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+const starSVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
 const ratings = {};
 const container = document.getElementById('ratings');
 ratingQuestions.forEach(q => {
   ratings[q.id] = 0;
   const row = document.createElement('div');
   row.className = 'q-row';
-  row.innerHTML = `<span class="q-text">${q.label}</span><div class="stars" id="stars-${q.id}">${[1,2,3,4,5].map(n=>`<div class="star" data-n="${n}" onclick="rate('${q.id}',${n})">${starSVG}</div>`).join('')}</div>`;
+  row.innerHTML = '<span class="q-text">' + q.label + '</span><div class="stars" id="stars-' + q.id + '">' + [1,2,3,4,5].map(n => '<div class="star" data-n="' + n + '" onclick="rate('' + q.id + '',' + n + ')">' + starSVG + '</div>').join('') + '</div>';
   container.appendChild(row);
-  if (q.id !== 'after') {
-    const div = document.createElement('div');
-    div.style.cssText = 'height:1px;background:#c8a84b22;margin:2px 0 12px;';
-    container.appendChild(div);
-  }
+  if (q.id !== 'q5') { const d = document.createElement('div'); d.style.cssText = 'height:1px;background:#c8a84b22;margin:2px 0 12px;'; container.appendChild(d); }
 });
 function rate(id, n) {
   ratings[id] = n;
-  document.querySelectorAll(`#stars-${id} .star`).forEach((s, i) => s.classList.toggle('active', i < n));
+  document.querySelectorAll('#stars-' + id + ' .star').forEach((s, i) => s.classList.toggle('active', i < n));
 }
 const ynState = {};
 function selectYN(btn, key, val) {
@@ -154,34 +148,26 @@ function selectChip(chip, group) {
   chip.classList.add('selected');
 }
 function submitForm() {
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxhzXLyfNo0PPMLxs_Ta47JZyjc6ETZM0j6jBNphr5EFJdfpEOJAHCOUz9ej17PHmmV/exec';
-    const payload = {
-          q1: ratings.overall,
-          q2: ratings.sim,
-          q3: ratings.teaching,
-          q4: ratings.before,
-          q5: ratings.after,
-          objectives: ynState.obj || '',
-          pacing: ynState.pace || '',
-          recommend: ynState.rec || '',
-          bestPart: document.getElementById('best').value,
-          changeAdd: document.getElementById('improve').value,
-          role: chipState.role || '',
-          experience: chipState.exp || ''
-    };
-    fetch(WEB_APP_URL, {
-          method: 'POST',
-          body: JSON.stringify(payload),
-          headers: { 'Content-Type': 'application/json' }
-    })
+  const fullNameEl = document.getElementById('fullName');
+  const emailEl = document.getElementById('emailAddr');
+  if (!fullNameEl.value.trim()) { alert('Please enter your full name.'); fullNameEl.focus(); return; }
+  if (!emailEl.value.trim() || !emailEl.value.includes('@')) { alert('Please enter a valid email address.'); emailEl.focus(); return; }
+  const payload = {
+    type: 'feedback',
+    fullName: fullNameEl.value.trim(),
+    email: emailEl.value.trim(),
+    q1: ratings.q1, q2: ratings.q2, q3: ratings.q3, q4: ratings.q4, q5: ratings.q5,
+    objectives: ynState.obj || '',
+    pacing: ynState.pace || '',
+    recommend: ynState.rec || '',
+    bestPart: document.getElementById('best').value,
+    changeAdd: document.getElementById('improve').value,
+    role: chipState.role || '',
+    experience: chipState.exp || ''
+  };
+  fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } })
     .then(r => r.json())
-    .then(data => {
-          document.getElementById('formWrap').style.display = 'none';
-          document.getElementById('thankyou').style.display = 'block';
-    })
-    .catch(err => {
-          document.getElementById('formWrap').style.display = 'none';
-          document.getElementById('thankyou').style.display = 'block';
-          console.error('Submission error:', err);
-    });
+    .then(data => { document.getElementById('formWrap').style.display = 'none'; document.getElementById('thankyou').style.display = 'block'; })
+    .catch(err => { document.getElementById('formWrap').style.display = 'none'; document.getElementById('thankyou').style.display = 'block'; console.error('Error:', err); });
 }
+</script>
